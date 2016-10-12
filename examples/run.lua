@@ -41,13 +41,13 @@ local params = lapp[[
 -- Get time, build log folder
 local longDate = os.date("%Y-%m-%dT%H%m%S")
 local uniqueName = longDate .. '-' .. '-' .. params.policy .. '-' .. params.learningUpdate .. '-' .. params.env .. '-stepsizeStart-' .. params.stepsizeStart
-local logDir = '../logs/gym/' .. params.experimentLogName .. '/' .. uniqueName
-params.rundir = logDir
-paths.mkdir(logDir)
+local logDir = '/logs/gym/' .. params.experimentLogName .. '/' .. uniqueName
+params.rundir = '..' .. logDir
+paths.mkdir('..' .. logDir)
 
 -- create log file
 local cmd = torch.CmdLine()
-cmd:log(logDir .. '/log', params)
+cmd:log('..' .. logDir .. '/log', params)
 
 -- environment
 local env = params.env
@@ -63,7 +63,7 @@ local agent = {
 local nSteps, nIterations = params.nSteps, params.nIterations
 
 -- gym data dump directory
-params.outdir = logDir .. '/'
+params.outdir = '.' .. logDir .. '/'
 
 -- run test
 local performance = require 'twrl.experiment'(env, agent, nSteps, nIterations, params)
